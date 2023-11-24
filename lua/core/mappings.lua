@@ -5,17 +5,33 @@ local M = {}
 M.general = {
   i = {
     -- go to  beginning and end
-    -- ["<C-b>"] = { "<ESC>^i", "Beginning of line" },
-    -- ["<C-e>"] = { "<End>", "End of line" },
+    ["<C-b>"] = { "<ESC>^i", "Beginning of line" },
+    ["<C-e>"] = { "<End>", "End of line" },
 
     -- navigate within insert mode
     -- ["<C-h>"] = { "<Left>", "Move left" },
     -- ["<C-l>"] = { "<Right>", "Move right" },
     -- ["<C-j>"] = { "<Down>", "Move down" },
     -- ["<C-k>"] = { "<Up>", "Move up" },
+
+    -- move lines
+    ["<A-j>"] = { "<esc><cmd>m .+1<CR>==gi", "Move down" },
+    ["<A-k>"] = { "<esc><cmd>m .-2<CR>==gi", "Move up" },
+
+    -- save file
+    ["<C-s>"] = { "<cmd> w <CR>", "Save file" },
+
+    -- ["<Esc>"] = { "<cmd> noh <CR>", "Clear highlights" },
+    -- ["<A-h>"] = { "<cmd>m .-2<CR>==", "Move left" },
+    -- ["<A-l>"] = { "<cmd>m .+1<CR>==", "Move right" },
   },
 
   n = {
+
+    -- launch Lazy
+    ["<leader>l"] = { "<cmd>Lazy<cr>", "launch lazy" },
+
+
     ["<Esc>"] = { "<cmd> noh <CR>", "Clear highlights" },
     -- switch between windows
     ["<C-h>"] = { "<C-w>h", "Window left" },
@@ -36,8 +52,16 @@ M.general = {
     ["<leader>qq"] = { "<cmd>qa<CR>", "Quit all" },
 
     -- line numbers
-    ["<leader>ul"] = { "<cmd> set nu! <CR>", "Toggle line number" },
     ["<leader>rn"] = { "<cmd> set rnu! <CR>", "Toggle relative number" },
+    ["<leader>ul"] = { "<cmd> set nu! <CR>", "Toggle line number" },
+
+    -- move lines
+    ["<A-j>"] = { "<cmd>m .+1<CR>==", "Move down" },
+    ["<A-k>"] = { "<cmd>m .-2<CR>==", "Move up" },
+
+    -- buffers
+    ["<leader>bb"] = { "<cmd>e #<cr>", "Switch to Other Buffer" },
+    ["<leader>`"] = { "<cmd>e #<cr>", "Delete buffer" },
 
     -- Allow moving the cursor through wrapped lines with j, k, <Up> and <Down>
     -- http://www.reddit.com/r/vim/comments/2k4cbr/problem_with_gj_and_gk/
@@ -81,6 +105,13 @@ M.general = {
     ["<Down>"] = { 'v:count || mode(1)[0:1] == "no" ? "j" : "gj"', "Move down", opts = { expr = true } },
     ["<"] = { "<gv", "Indent line" },
     [">"] = { ">gv", "Indent line" },
+
+    -- save file
+    ["<C-s>"] = { "<cmd> w <CR>", "Save file" },
+
+    -- move lines
+    ["<A-j>"] = { ":m '>+1<CR>gv=gv", "Move down" },
+    ["<A-k>"] = { ":m '<-2<CR>gv=gv", "Move up" },
   },
 
   x = {
@@ -190,7 +221,7 @@ M.lspconfig = {
       "LSP definition type",
     },
 
-    ["<leader>rn"] = {
+    ["<leader>cr"] = {
       function()
         require("nvchad.renamer").open()
       end,
@@ -205,12 +236,11 @@ M.lspconfig = {
     },
 
     ["<leader>cd"] = {
-      function ()
+      function()
         vim.diagnostic.open_float()
       end,
-      "Line Diagnostic"
+      "Line Diagnostic",
     },
-
 
     ["gr"] = {
       function()
