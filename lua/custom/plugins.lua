@@ -94,6 +94,14 @@ local plugins = {
     opts = overrides.copilot,
   },
 
+  {
+    "folke/zen-mode.nvim",
+    opts = overrides.zen,
+    keys = {
+      { "<leader>zz", "<cmd>ZenMode<cr>", desc = "Zen Mode" },
+    },
+  },
+
   -- To make a plugin not be loaded
   -- {
   --   "NvChad/nvim-colorizer.lua",
