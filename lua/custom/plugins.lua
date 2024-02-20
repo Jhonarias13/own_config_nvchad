@@ -94,12 +94,25 @@ local plugins = {
     opts = overrides.copilot,
   },
 
+  -- inc-rename to rename variables
+  {
+    "smjonas/inc-rename.nvim",
+    cmd = "IncRename",
+    config = true,
+  },
+
   {
     "folke/zen-mode.nvim",
     opts = overrides.zen,
     keys = {
       { "<leader>zz", "<cmd>ZenMode<cr>", desc = "Zen Mode" },
     },
+  },
+
+  {
+    "mg979/vim-visual-multi",
+    lazy = false,
+    branch = "master",
   },
 
   -- To make a plugin not be loaded

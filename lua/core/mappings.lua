@@ -27,12 +27,10 @@ M.general = {
   },
 
   n = {
-
     -- launch Lazy
     ["<leader>l"] = { "<cmd>Lazy<cr>", "launch lazy" },
 
-
-    ["<Esc>"] = { "<cmd> noh <CR>", "Clear highlights" },
+    ["<Esc><Esc>"] = { "<cmd> noh <CR>", "Clear highlights" },
     -- switch between windows
     ["<C-h>"] = { "<C-w>h", "Window left" },
     ["<C-l>"] = { "<C-w>l", "Window right" },
@@ -45,9 +43,6 @@ M.general = {
     -- Select all
     ["<C-a>"] = { "gg<S-v>G", "Select all" },
 
-    -- select current word
-    ["C-d"] = { "viw", "Select current word" },
-
     -- quit all
     ["<leader>qq"] = { "<cmd>qa<CR>", "Quit all" },
 
@@ -56,15 +51,18 @@ M.general = {
     ["<leader>ul"] = { "<cmd> set nu! <CR>", "Toggle line number" },
 
     -- move lines
-    ["<A-j>"] = { "<cmd>m .+1<CR>==", "Move down" },
-    ["<A-k>"] = { "<cmd>m .-2<CR>==", "Move up" },
+    ["<A-j>"] = { "<ESC><cmd>m .+1<CR>==", "Move down" },
+    ["<A-k>"] = { "<ESC><cmd>m .-2<CR>==", "Move up" },
 
     -- buffers
     ["<leader>bb"] = { "<cmd>e #<cr>", "Switch to Other Buffer" },
-    ["<leader>`"] = { "<cmd>e #<cr>", "Delete buffer" },
+    -- ["<leader>`"] = { "<cmd>e #<cr>", "Delete buffer" },
 
     -- toggle wrap
-    ["<leader>uw"] = {"<cmd> set wrap! <CR>", "Toggle wrap"},
+    ["<leader>uw"] = { "<cmd> set wrap! <CR>", "Toggle wrap" },
+
+    -- Inc rename
+    -- ["<leader>cr"] = { "<cmd>IncRename ", "Rename variable" },
 
     -- Allow moving the cursor through wrapped lines with j, k, <Up> and <Down>
     -- http://www.reddit.com/r/vim/comments/2k4cbr/problem_with_gj_and_gk/
@@ -120,7 +118,7 @@ M.general = {
   x = {
     ["j"] = { 'v:count || mode(1)[0:1] == "no" ? "j" : "gj"', "Move down", opts = { expr = true } },
     ["k"] = { 'v:count || mode(1)[0:1] == "no" ? "k" : "gk"', "Move up", opts = { expr = true } },
-    -- Don't copy the replaced text after pasting in visual mode
+
     -- https://vim.fandom.com/wiki/Replace_a_word_with_yanked_text#Alternative_mapping_for_paste
     ["p"] = { 'p:let @+=@0<CR>:let @"=@0<CR>', "Dont copy replaced text", opts = { silent = true } },
   },
@@ -160,7 +158,7 @@ M.comment = {
 
   -- toggle comment in both modes
   n = {
-    ["<C-k>c"] = {
+    ["<leader>kc"] = {
       function()
         require("Comment.api").toggle.linewise.current()
       end,
@@ -169,7 +167,7 @@ M.comment = {
   },
 
   v = {
-    ["<C-k>c"] = {
+    ["<leader>kc"] = {
       "<ESC><cmd>lua require('Comment.api').toggle.linewise(vim.fn.visualmode())<CR>",
       "Toggle comment",
     },
@@ -356,14 +354,14 @@ M.nvterm = {
 
   t = {
     -- toggle in terminal mode
-    ["<C-/>"] = {
+    ["<C-.>"] = {
       function()
         require("nvterm.terminal").toggle "float"
       end,
       "Toggle floating term",
     },
 
-    ["<C-h>"] = {
+    ["<C-/>"] = {
       function()
         require("nvterm.terminal").toggle "horizontal"
       end,
@@ -380,14 +378,14 @@ M.nvterm = {
 
   n = {
     -- toggle in terminal mode
-    ["<C-/>"] = {
+    ["<C-.>"] = {
       function()
         require("nvterm.terminal").toggle "float"
       end,
       "Toggle floating term",
     },
 
-    ["<C-h>"] = {
+    ["<C-/>"] = {
       function()
         require("nvterm.terminal").toggle "horizontal"
       end,
